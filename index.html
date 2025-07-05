@@ -459,7 +459,7 @@
 
                 <div class="form-group">
                     <label for="absentReason">미출석 사유</label>
-                    <textarea id="absentReason" name="absentReason" placeholder="결석이나 지각 사유를 간단히 적어주세요"></textarea>
+                    <textarea id="absentReason" name="absentReason" placeholder="결석이나 지각 사유를 간단히 적어주세요,예) 개인사유 구체적으로, 출장, 몸살, 질병등"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -545,7 +545,7 @@
         // 구글 시트로 데이터 전송 함수
         function submitToGoogleSheets(data) {
             // 여기에 구글 앱 스크립트 웹 앱 URL을 입력하세요
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyW6MLFZki1oEQYa5wX7L2ojV5fyAD9nWUUOmWhp-Sc0gh1ky-mmZFKejNUJtJTJEYE/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyjtujD8Pvk2aEUzoKysjKwP-TjcPcLgHNOB_IZpQUqjCbj3J_F87Xd4rD_j9w7ldE/exec';
             
             fetch(scriptURL, {
                 method: 'POST',
