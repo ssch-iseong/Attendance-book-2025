@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인천성산교회 중고등부 교사 출석부</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.05"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.05"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.05"/><circle cx="90" cy="90" r="1" fill="white" opacity="0.05"/><circle cx="10" cy="80" r="1" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 40px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .date-display {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 16px 24px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 500;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+        .form-group:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .form-group label::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 16px;
+            background: white;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 20px;
+            font-family: inherit;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .radio-option {
+            position: relative;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 16px 20px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #4a5568;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .radio-option label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .radio-option label:hover {
+            background: #edf2f7;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .radio-option label:hover::before {
+            left: 100%;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .radio-option input[type="radio"]:checked + label::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
+            color: #2d3748;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+            font-family: inherit;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 24px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            box-shadow: 0 8px 16px rgba(72, 187, 120, 0.3);
+        }
+
+        .success-message.show {
+            display: block;
+            animation: successSlide 0.5s ease-out;
+        }
+
+        @keyframes successSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 20px;
+            }
+            
+            .header {
+                padding: 30px 20px 40px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .radio-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 로딩 애니메이션 */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading .submit-btn {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .loading .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✝️ 인천성산교회 중고등부 교사 출석부</h1>
+            <p>하나님의 사랑으로 섬기는 교사님들을 위한 출석 관리 시스템</p>
+            <div class="date-display">
+                <span id="currentDate"></span>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="attendanceForm">
+                <div class="form-group">
+                    <label for="teacher">교사명</label>
+                    <select id="teacher" name="teacher" required>
+                        <option value="">교사님을 선택해주세요</option>
+                        <option value="도민수 쌤(고등부장)">도민수 쌤(고등부장)</option>
+                        <option value="허현범 쌤(고등 총무/회계)">허현범 쌤(고등 총무/회계)</option>
+                        <option value="호윤경 쌤(고 3학년 담임)">호윤경 쌤(고 3학년 담임)</option>
+                        <option value="윤동길 쌤(고 2-1반 담임)">윤동길 쌤(고 2-1반 담임)</option>
+                        <option value="권오경 쌤(고 2-2반 담임)">권오경 쌤(고 2-2반 담임)</option>
+                        <option value="유기주 쌤(고 1-1반 담임)">유기주 쌤(고 1-1반 담임)</option>
+                        <option value="김영광 쌤(고 1-2반 담임)">김영광 쌤(고 1-2반 담임)</option>
+                        <option value="신유규 쌤(고 보조)">신유규 쌤(고 보조)</option>
+                        <option value="봉진영 쌤(중등부장)">봉진영 쌤(중등부장)</option>
+                        <option value="박경민 쌤(중등 총무/회계)">박경민 쌤(중등 총무/회계)</option>
+                        <option value="김혁배 쌤(중 3-1반 담임)">김혁배 쌤(중 3-1반 담임)</option>
+                        <option value="손인준 쌤(중 3-2반 담임)">손인준 쌤(중 3-2반 담임)</option>
+                        <option value="백경호 쌤(중 2-1반 담임)">백경호 쌤(중 2-1반 담임)</option>
+                        <option value="최은혜 쌤(중 2-2반 담임)">최은혜 쌤(중 2-2반 담임)</option>
+                        <option value="홍영호 쌤(중 1-1반 담임)">홍영호 쌤(중 1-1반 담임)</option>
+                        <option value="김수연 쌤(중 1-1반 담임)">김수연 쌤(중 1-1반 담임)</option>
+                        <option value="박기태 쌤(중 보조)">박기태 쌤(중 보조)</option>
+                        <option value="박대경 쌤(중 보조)">박대경 쌤(중 보조)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>출석 여부</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="attendance" value="O" id="attendance_o" required>
+                            <label for="attendance_o">출석 (O)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="attendance" value="△" id="attendance_delta" required>
+                            <label for="attendance_delta">지각 (△)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="attendance" value="X" id="attendance_x" required>
+                            <label for="attendance_x">결석 (X)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>공과 진행</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="lesson" value="O" id="lesson_o" required>
+                            <label for="lesson_o">진행 (O)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="lesson" value="X" id="lesson_x" required>
+                            <label for="lesson_x">미진행 (X)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="absentReason">미출석 사유</label>
+                    <textarea id="absentReason" name="absentReason" placeholder="결석이나 지각 사유를 간단히 적어주세요"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="visit">심방</label>
+                    <textarea id="visit" name="visit" placeholder="심방 관련 내용이 있으시면 적어주세요"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="classAttendance">반 출석 인원</label>
+                    <input type="text" id="classAttendance" name="classAttendance" placeholder="예: 15명 출석 / 전체 18명">
+                </div>
+
+                <div class="form-group">
+                    <label for="specialNotes">특이사항</label>
+                    <textarea id="specialNotes" name="specialNotes" placeholder="특별한 사항이나 전달할 내용이 있으시면 적어주세요"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">출석부 제출하기</button>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                ✅ 출석부가 성공적으로 제출되었습니다! 감사합니다.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 현재 날짜 표시
+        function updateDate() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                weekday: 'long' 
+            };
+            document.getElementById('currentDate').textContent = 
+                now.toLocaleDateString('ko-KR', options);
+        }
+
+        // 폼 제출 처리
+        document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 로딩 상태 활성화
+            document.body.classList.add('loading');
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // 현재 날짜 추가
+            data.date = new Date().toISOString();
+            
+            // 여기서 구글 시트로 데이터를 전송
+            submitToGoogleSheets(data);
+            
+            // 1초 후 성공 처리 (실제 응답 대기 시간 시뮬레이션)
+            setTimeout(() => {
+                // 로딩 상태 해제
+                document.body.classList.remove('loading');
+                
+                // 성공 메시지 표시
+                const successMessage = document.getElementById('successMessage');
+                successMessage.classList.add('show');
+                successMessage.style.display = 'block';
+                
+                // 폼 초기화
+                this.reset();
+                
+                // 스크롤을 맨 위로
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 4초 후 성공 메시지 숨기기
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 500);
+                }, 4000);
+            }, 1000);
+        });
+
+        // 구글 시트로 데이터 전송 함수
+        function submitToGoogleSheets(data) {
+            // 여기에 구글 앱 스크립트 웹 앱 URL을 입력하세요
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // 페이지 로드 시 날짜 업데이트
+        updateDate();
+    </script>
+</body>
+</html>
