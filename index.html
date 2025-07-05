@@ -500,49 +500,6 @@
                 now.toLocaleDateString('ko-KR', options);
         }
 
-/*
-        // 폼 제출 처리
-        document.getElementById('attendanceForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // 로딩 상태 활성화
-            document.body.classList.add('loading');
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // 현재 날짜 추가
-            data.date = new Date().toISOString();
-            
-            // 여기서 구글 시트로 데이터를 전송
-            submitToGoogleSheets(data);
-            
-            // 1초 후 성공 처리 (실제 응답 대기 시간 시뮬레이션)
-            setTimeout(() => {
-                // 로딩 상태 해제
-                document.body.classList.remove('loading');
-                
-                // 성공 메시지 표시
-                const successMessage = document.getElementById('successMessage');
-                successMessage.classList.add('show');
-                successMessage.style.display = 'block';
-                
-                // 폼 초기화
-                this.reset();
-                
-                // 스크롤을 맨 위로
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                // 4초 후 성공 메시지 숨기기
-                setTimeout(() => {
-                    successMessage.classList.remove('show');
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 500);
-                }, 4000);
-            }, 1000);
-        }); */
-
        // 구글 시트로 데이터 전송 함수 (개선된 버전)
 function submitToGoogleSheets(data) {
     // 구글 앱 스크립트 웹 앱 URL
