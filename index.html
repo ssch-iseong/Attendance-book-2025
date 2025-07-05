@@ -566,6 +566,8 @@ document.getElementById('attendanceForm').addEventListener('submit', function(e)
         const successMessage = document.getElementById('successMessage');
         successMessage.classList.add('show');
         successMessage.style.display = 'block';
+
+        alert("출석부가 성공적으로 제출되었습니다! 감사합니다.");
         
         // 폼 초기화
         this.reset();
